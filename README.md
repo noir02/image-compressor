@@ -1,10 +1,12 @@
 # 图片压缩工具
 
+![pages](https://github.com/noir02/image-compressor/workflows/pages%20build%20and%20deployment/badge.svg)
+
 一个零依赖、双击 `index.html` 就能用的 Web 端图片压缩工具。100% 纯前端，**所有处理都在浏览器本地完成，文件不会上传到任何服务器**。
 
 > 在线 Demo（GitHub Pages）：<https://noir02.github.io/image-compressor/>
 
-![hero](https://placehold.co/1200x600/2563eb/ffffff?text=Image+Compressor)
+![demo](./docs/screenshot.png)
 
 ## 特性
 
