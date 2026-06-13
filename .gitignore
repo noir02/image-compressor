@@ -1,0 +1,23 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Python (dev helper)
+__pycache__/
+*.pyc
+*.pyo
+
+# Local config / agent runtime
+.codex/
+.agents/
+
+# Build / dependency dirs
+node_modules/
+dist/
+.cache/

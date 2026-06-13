@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>图片压缩工具</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="app-header">
+    <h1>图片压缩工具</h1>
+    <button class="theme-toggle" id="theme-toggle" aria-label="切换主题" type="button"></button>
+  </header>
+
+  <main class="app-main">
+    <section class="drop-zone" id="drop-zone" tabindex="0" role="button" aria-label="选择或拖入图片">
+      <div class="drop-zone-content">
+        <div class="drop-zone-icon" id="drop-zone-icon"></div>
+        <div class="drop-zone-title">拖入图片 / 点击选择</div>
+        <div class="drop-zone-hint">JPEG · PNG · WebP，可一次多张</div>
+      </div>
+      <input type="file" id="file-input" accept="image/jpeg,image/png,image/webp" multiple hidden>
+    </section>
+
+    <div class="drop-zone-error" id="drop-zone-error" hidden></div>
+
+    <section class="settings-card" id="settings-card" aria-label="压缩设置">
+      <div class="settings-grid">
+        <div class="setting">
+          <label for="output-format">输出格式</label>
+          <select id="output-format">
+            <option value="auto">跟随原图</option>
+            <option value="image/jpeg">JPEG</option>
+            <option value="image/png">PNG</option>
+            <option value="image/webp" id="webp-option">WebP</option>
+          </select>
+        </div>
+
+        <div class="setting">
+          <label for="quality">质量 <span class="quality-value" id="quality-value">80</span></label>
+          <input type="range" id="quality" min="1" max="100" value="80">
+        </div>
+
+        <div class="setting" id="png-strategy-setting" hidden>
+          <label>PNG 策略</label>
+          <div class="radio-group">
+            <label class="radio">
+              <input type="radio" name="png-strategy" value="lossless" checked>
+              <span>无损重压缩</span>
+            </label>
+            <label class="radio">
+              <input type="radio" name="png-strategy" value="lossy">
+              <span>有损重编码</span>
+            </label>
+            <label class="radio">
+              <input type="radio" name="png-strategy" value="webp">
+              <span>转 WebP</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="setting">
+          <label class="toggle">
+            <input type="checkbox" id="resize-toggle">
+            <span>缩放（按最长边）</span>
+          </label>
+          <input type="number" id="resize-max" min="1" max="8000" value="2000" disabled>
+        </div>
+      </div>
+    </section>
+
+    <section class="image-list-section" aria-label="图片列表">
+      <div class="image-list-header" id="image-list-header" hidden>
+        <h2>图片列表 <span class="count" id="count">0</span></h2>
+      </div>
+      <ul class="image-list" id="image-list"></ul>
+      <div class="empty-state" id="empty-state">
+        <div class="empty-state-icon" id="empty-state-icon"></div>
+        <div class="empty-state-text">还没有图片</div>
+        <div class="empty-state-hint">把图拖到上面，或点上面的区域选择文件</div>
+      </div>
+    </section>
+
+    <div class="action-bar" id="action-bar" hidden>
+      <button class="btn" id="add-more" type="button">
+        <span class="btn-icon-slot" id="add-more-icon"></span>
+        添加更多
+      </button>
+      <button class="btn" id="download-zip" type="button">
+        <span class="btn-icon-slot" id="download-zip-icon"></span>
+        下载全部（ZIP）
+      </button>
+      <button class="btn btn-ghost" id="clear-all" type="button">清空</button>
+    </div>
+  </main>
+
+  <div class="toast-container" id="toast-container" aria-live="polite"></div>
+
+  <div class="modal-backdrop" id="modal-backdrop" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <div class="modal-title" id="modal-title">提示</div>
+      <div class="modal-body" id="modal-body"></div>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" id="modal-cancel" type="button">取消</button>
+        <button class="btn btn-primary" id="modal-confirm" type="button">继续</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/upng-js@2.1.0/UPNG.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
